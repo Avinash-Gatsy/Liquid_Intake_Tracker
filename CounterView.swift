@@ -8,11 +8,11 @@
 
 import UIKit
 
-let NoOfGlasses = 8
+
 let π:CGFloat = CGFloat(M_PI) //π - alt+p
 
 @IBDesignable class CounterView: UIView {
-
+    let NoOfGlasses = 8
     @IBInspectable var counter: Int = 5 {
         didSet{
             if counter <= NoOfGlasses {
@@ -40,7 +40,7 @@ let π:CGFloat = CGFloat(M_PI) //π - alt+p
         let startAngle: CGFloat = 3 * π / 4
         let endAngle: CGFloat = π / 4
         
-        var path = UIBezierPath(arcCenter: center,
+        let path = UIBezierPath(arcCenter: center,
                                 radius: radius/2 - arcWidth/2,
                                 startAngle: startAngle,
                                 endAngle: endAngle,
@@ -63,7 +63,7 @@ let π:CGFloat = CGFloat(M_PI) //π - alt+p
         let outlineEndAngle = arcLengthPerGlass * CGFloat(counter) + startAngle
         
         //draw the outer arc
-        var outlinePath = UIBezierPath(arcCenter: center,
+        let outlinePath = UIBezierPath(arcCenter: center,
                                        radius: bounds.width/2 - 2.5,
                                        startAngle: startAngle,
                                        endAngle: outlineEndAngle,

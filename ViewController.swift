@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class ViewController: UIViewController {
     
     @IBOutlet weak var counterView: CounterView!
@@ -22,10 +23,18 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     @IBAction func btnPushButton(button: PushButtonView) {
-        if button.isAddButton {
-            counterView.counter += 1
+        
+        let CounterClass = CounterView()
+        let MaxCount = CounterClass.NoOfGlasses
+        
+        if  button.isAddButton {
+            if counterView.counter < MaxCount{
+                counterView.counter += 1
+            }else{
+                counterView.counter = MaxCount
+            }
         } else {
             if counterView.counter > 0 {
                 counterView.counter -= 1
