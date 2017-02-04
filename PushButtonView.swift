@@ -14,16 +14,41 @@ class PushButtonView: UIButton {
     //@IBInspectable is an attribute you can add to a property that makes it readable by Interface Builder.
     @IBInspectable var fillColor: UIColor = UIColor.init(red: 0.281, green: 0.706, blue: 0.373, alpha: 1)
     @IBInspectable var isAddButton: Bool = true
+    @IBInspectable var startColor: UIColor = UIColor.red
+    @IBInspectable var endColor: UIColor = UIColor.green
+
     
     override func draw(_ rect: CGRect) {
         
         //First create an oval-shaped UIBezierPath that is the size of the rectangle passed to it.
-        let path = UIBezierPath(ovalIn: rect)
+        //let path = UIBezierPath(ovalIn: rect)
+        
+        let width = rect.width
+        let height = rect.height
+        let path = UIBezierPath(roundedRect: rect,
+                                byRoundingCorners: UIRectCorner.allCorners,
+                                cornerRadii: CGSize(width: width/2, height: height/2))
+        path.addClip()
         
         //To draw the path, you gave the current context a fill color, and then fill the path.
         //UIColor.blue.setFill()
-        fillColor.setFill()
-        path.fill()
+        //fillColor.setFill()
+        //path.fill()
+        
+        let context = UIGraphicsGetCurrentContext()
+        let colors = [startColor.cgColor, endColor.cgColor]
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let colorLocations:[CGFloat] = [0.0, 1.0]
+        let gradient = CGGradient(colorsSpace: colorSpace,
+                                  colors: colors as CFArray,
+                                  locations: colorLocations)
+
+        let startPoint = CGPoint.zero
+        let endPoint = CGPoint(x:0, y:path.bounds.height)
+        context!.drawLinearGradient(gradient!,
+                                    start: startPoint,
+                                    end: endPoint,
+                                    options: CGGradientDrawingOptions(rawValue: 0))
         
         //Each UIView has a graphics context, and all drawing for the view renders into this context before being transferred to the device’s hardware. iOS updates the context by calling draw(_:) whenever the view needs to be updated.
         
@@ -34,9 +59,6 @@ class PushButtonView: UIButton {
         //set up the width and height variables for the horizontal stroke
         let plusHeight: CGFloat = 5.0
         let plusWidth: CGFloat = min(bounds.width, bounds.height) * 0.6
-        print(bounds.width)
-        print(bounds.height)
-        print(plusWidth)
         
         //create the path
         let plusPath = UIBezierPath()
