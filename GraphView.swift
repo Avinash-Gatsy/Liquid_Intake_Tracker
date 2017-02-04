@@ -67,7 +67,7 @@ import UIKit
         //columnXPoint takes a column as a parameter, and returns a value where the point should be on the x-axis.
         
         let margin:CGFloat = 20.0
-        var columnXPoint = { (column:Int) -> CGFloat in
+        let columnXPoint = { (column:Int) -> CGFloat in
             //Calculate gap between points
             let spacer = (width - margin*2 - 4) /
                 CGFloat((self.graphPoints.count - 1))
@@ -84,7 +84,7 @@ import UIKit
         let bottomBorder:CGFloat = 50
         let graphHeight = height - topBorder - bottomBorder
         let maxValue = graphPoints.max()
-        var columnYPoint = { (graphPoint:Int) -> CGFloat in
+        let columnYPoint = { (graphPoint:Int) -> CGFloat in
             var y:CGFloat = CGFloat(graphPoint) /
                 CGFloat(maxValue!) * graphHeight
             y = graphHeight + topBorder - y // Flip the graph
@@ -96,7 +96,7 @@ import UIKit
         UIColor.white.setStroke()
         
         //set up the points line
-        var graphPath = UIBezierPath()
+        let graphPath = UIBezierPath()
         //go to start of line
         graphPath.move(to: CGPoint(x:columnXPoint(0),
                                       y:columnYPoint(graphPoints[0])))

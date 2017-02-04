@@ -75,7 +75,7 @@ class ViewController: UIViewController {
     func setupGraphDisplay() {
         
         //Use 7 days for graph - can use any number, but labels and sample data are set up for 7 days
-        let noOfDays:Int = 7
+        //let noOfDays:Int = 7
         
         //replace last day with today's actual data
         graphView.graphPoints[graphView.graphPoints.count-1] = counterView.counter
@@ -95,11 +95,10 @@ class ViewController: UIViewController {
         
         //get today's day number
         //This section put the current day’s number from the iOS calendar into the property weekday.
-        let dateFormatter = DateFormatter()
+        //let dateFormatter = DateFormatter()
         let calendar = NSCalendar.current
         let component = calendar.component(.weekday, from:NSDate() as Date)
         var weekday = component
-        
         let days = ["S", "M", "T", "W", "T", "F", "S"]
         
         //set up the day name labels with correct day
@@ -107,15 +106,11 @@ class ViewController: UIViewController {
         for i in (1...days.count) {
             let j = (days.count) - (i-1)
             if let labelView = graphView.viewWithTag(j) as? UILabel {
-                if weekday == 7 {
-                    weekday = 0
-                }
                 if weekday >= i {
                     labelView.text = days[weekday - i]
                 } else {
-                    labelView.text = days[i - 1]
+                    labelView.text = days[days.count - (i - weekday)]
                 }
-                print(labelView.text)
                 if weekday < 0 {
                     weekday = days.count - 1
                 }
